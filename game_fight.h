@@ -18,20 +18,38 @@ const char game_fight_html[] PROGMEM = R"rawliteral(
     #hp2 { background: #3498db; } /* P2 màu xanh */
 
     /* Khu vực chiến đấu */
-    .arena { height: 150px; display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 60px; background: #34495e; border-radius: 15px; margin-bottom: 20px; }
+    .arena { height: 150px; display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 60px; background: #34495e; border-radius: 15px; margin-bottom: 20px; border: 2px solid #7f8c8d; }
     .vs-text { font-size: 30px; font-weight: bold; color: #f1c40f; }
 
     /* Nút bấm */
-    .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
     .btn-move { 
       background: #ecf0f1; border: none; border-radius: 15px; padding: 20px 0; font-size: 40px; cursor: pointer; 
       box-shadow: 0 5px #bdc3c7; transition: transform 0.1s;
     }
     .btn-move:active { transform: translateY(4px); box-shadow: 0 2px #bdc3c7; }
-    .btn-move.selected { background: #f1c40f; border: 4px solid #e67e22; }
+    .btn-move.selected { background: #f1c40f; border: 4px solid #e67e22; transform: translateY(4px); box-shadow: none; }
 
-    #status { font-size: 18px; margin-bottom: 10px; font-weight: bold; min-height: 25px; }
-    .home { display: block; margin-top: 30px; color: #95a5a6; text-decoration: none; padding: 10px; border: 1px solid #95a5a6; border-radius: 5px; }
+    #status { font-size: 18px; margin-bottom: 10px; font-weight: bold; min-height: 25px; color: #ecf0f1; }
+    .home { display: inline-block; margin-top: 20px; color: #bdc3c7; text-decoration: none; padding: 10px 20px; border: 1px solid #7f8c8d; border-radius: 20px; }
+
+    /* CSS CHO PHẦN HƯỚNG DẪN (MỚI THÊM) */
+    .instructions {
+      margin-top: 20px;
+      padding: 15px;
+      background: #34495e;
+      border-radius: 15px;
+      text-align: left;
+      font-size: 14px;
+      color: #ecf0f1;
+      border: 1px solid #7f8c8d;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .instructions h3 { margin-top: 0; color: #f1c40f; border-bottom: 1px solid #7f8c8d; padding-bottom: 10px; font-size: 16px; }
+    .instructions ul { padding-left: 20px; margin-bottom: 0; }
+    .instructions li { margin-bottom: 8px; line-height: 1.4; }
 
     /* Modal kết quả */
     #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); flex-direction: column; justify-content: center; align-items: center; z-index: 99; }
@@ -66,7 +84,18 @@ const char game_fight_html[] PROGMEM = R"rawliteral(
     <button class="btn-move" onclick="pick('scissors')">✂️</button>
   </div>
 
-  <a href="/" class="home">Thoát Game</a>
+  <div class="instructions">
+    <h3>📖 Luật Đại Chiến</h3>
+    <ul>
+      <li>1. Game dành cho 2 người (P1 vs P2).</li>
+      <li>2. Bí mật chọn chiêu: Kéo ✂️, Búa 🪨, hoặc Bao 📄.</li>
+      <li>3. Khi cả 2 đã chọn xong, kết quả sẽ hiện ra.</li>
+      <li>4. Người thắng sẽ gây sát thương trừ máu đối thủ.</li>
+      <li>5. Ai cạn thanh máu trước sẽ THUA CUỘC! ☠️</li>
+    </ul>
+  </div>
+
+  <a href="/" class="home">⬅ Quay về Sảnh</a>
 
   <div id="modal">
     <div id="win-msg">WINNER!</div>
@@ -113,6 +142,7 @@ const char game_fight_html[] PROGMEM = R"rawliteral(
       }
       else if(cmd === 'end') {
         document.getElementById('win-msg').innerText = "PLAYER " + (parseInt(parts[2]) + 1) + " THẮNG!";
+        document.getElementById('win-msg').style.color = (parseInt(parts[2]) == 0) ? '#e74c3c' : '#3498db';
         document.getElementById('modal').style.display = 'flex';
       }
     }

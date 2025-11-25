@@ -30,9 +30,26 @@ const char game_html[] PROGMEM = R"rawliteral(
       color: white; font-size: 40px; font-weight: 900; 
       box-shadow: 0 10px #b2bec3; cursor: pointer;
       -webkit-tap-highlight-color: transparent;
+      margin-bottom: 30px; /* Tạo khoảng cách với hướng dẫn */
     }
     #btn-tap:active { transform: translateY(5px); box-shadow: 0 5px #b2bec3; }
     #btn-tap:disabled { background: #636e72; color: #b2bec3; box-shadow: none; cursor: not-allowed; }
+
+    /* CSS CHO PHẦN HƯỚNG DẪN */
+    .instructions {
+      background: #353b48;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 0 auto;
+      max-width: 400px;
+      text-align: left;
+      border: 1px solid #555;
+      font-size: 14px;
+      color: #dcdde1;
+    }
+    .instructions h3 { margin-top: 0; color: #f1c40f; border-bottom: 1px solid #555; padding-bottom: 5px;}
+    .instructions ul { padding-left: 20px; margin-bottom: 0; }
+    .instructions li { margin-bottom: 8px; }
 
     #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); flex-direction: column; justify-content: center; align-items: center; z-index: 99; }
     #win-txt { font-size: 50px; color: gold; font-weight: bold; margin-bottom: 30px; }
@@ -44,7 +61,8 @@ const char game_html[] PROGMEM = R"rawliteral(
   <div class="header">
     <a href="/" class="btn-home">⬅ Trang chủ</a>
     <h2>ĐUA XE</h2>
-    <div style="width: 50px;"></div> </div>
+    <div style="width: 50px;"></div> 
+  </div>
 
   <div id="info">Đang kết nối...</div>
 
@@ -56,6 +74,16 @@ const char game_html[] PROGMEM = R"rawliteral(
   </div>
 
   <button id="btn-tap" onclick="tap()" ontouchstart="tap(event)">BẤM NHANH!</button>
+
+  <div class="instructions">
+    <h3>📜 HƯỚNG DẪN</h3>
+    <ul>
+      <li>Chờ dòng chữ <b>"BẠN LÀ PLAYER..."</b> xuất hiện.</li>
+      <li>Bấm liên tục vào nút tròn <b>BẤM NHANH!</b></li>
+      <li>Thanh màu của ai chạy đầy 100% trước sẽ thắng.</li>
+      <li>Cẩn thận gãy màn hình điện thoại nhé! 😂</li>
+    </ul>
+  </div>
 
   <div id="modal">
     <div id="win-txt">WINNER!</div>
